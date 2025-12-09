@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Http;
 
 class ConsultaDNI extends Page
 {
+    // https://api.codart.cgrt.net/
+    // https://api.codart.cgrt.net/documentacion
     private $token = '5GQEkpGu69GJdUOn9eRvqqZbci68LAvQHBzLApNNLcsd9YofjWu6zI1A5zuW';
 
     protected string $view = 'filament.pages.consulta-d-n-i';
