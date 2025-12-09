@@ -44,12 +44,4 @@ class DNI extends Page
             ])
             ->statePath('data');
     }
-
-    // protected function getViewData(): array
-    // {
-    //     return array_merge(parent::getViewData(), [
-    //         'resultado' => $this->resultado,
-    //         'data' => $this->data,
-    //     ]);
-    // }
 }
