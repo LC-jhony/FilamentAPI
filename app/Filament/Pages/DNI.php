@@ -23,7 +23,7 @@ class DNI extends Page
 
     protected static ?string $navigationLabel = 'DNI';
 
-    protected static string|UnitEnum|null $navigationGroup = 'DNI';
+    protected static string|UnitEnum|null $navigationGroup = 'Documentos';
 
     public function form(Schema $schema): Schema
     {
