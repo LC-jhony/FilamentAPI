@@ -39,4 +39,9 @@ return [
         'base_url' => env('SUNAT_API_URL', 'https://api.codart.cgrt.net/api/v1/consultas/sunat'),
     ],
 
+    'apis_net' => [
+        'token' => env('APIS_NET_TOKEN'),
+        'base_url' => env('APIS_NET_URL', 'https://api.apis.net.pe'),
+    ],
+
 ];

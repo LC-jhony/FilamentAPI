@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Trait\TraitApiConsulta;
 use Dom\Text;
+use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +16,7 @@ class ApiConsulta extends Page
 {
     use TraitApiConsulta;
     protected string $view = 'filament.pages.api-consulta';
+    protected static string|BackedEnum|null $navigationIcon = 'hugeicons-api';
     public $data = [];
     public $resultado = null;
     public function mount(): void
@@ -39,10 +41,10 @@ class ApiConsulta extends Page
                             ->label('Nombres')
                             ->disabled(),
                         TextInput::make('first_last_name')
-                            ->label('Nombres')
+                            ->label('Apellido Paterno')
                             ->disabled(),
                         TextInput::make('second_last_name')
-                            ->label('Nombres')
+                            ->label('Apellido Materno')
                             ->disabled(),
                     ]),
                 Section::make('Consulta RUC')

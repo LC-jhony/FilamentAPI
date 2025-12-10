@@ -31,7 +31,10 @@ class TraitApiConsultaTest extends TestCase
         };
 
         $page->form = new class {
-            public function getState() { return ['dni' => '12345678']; }
+            public function getState()
+            {
+                return ['dni' => '12345678'];
+            }
         };
 
         $page->consultaRENIEC($set);
@@ -39,6 +42,46 @@ class TraitApiConsultaTest extends TestCase
         $this->assertSame('Juan', $setCalls['first_name'] ?? null);
         $this->assertSame('Pérez', $setCalls['first_last_name'] ?? null);
         $this->assertSame('García', $setCalls['second_last_name'] ?? null);
+    }
+
+    public function test_alias_dinamicos_reniec_con_merge(): void
+    {
+        $mock = Mockery::mock(ApiService::class);
+        $mock->shouldReceive('consultarDNI')->andReturn([
+            'success' => true,
+            'data' => [
+                'nombre_completo' => 'Ana',
+                'ape_pat' => 'Lopez',
+                'ape_mat' => 'Soto',
+            ],
+        ]);
+        App::instance(ApiService::class, $mock);
+
+        $page = app(ApiConsulta::class);
+        // agregar alias dinámicos que se sumen a los existentes
+        $page->setFieldAliases('reniec', [
+            'first_name' => ['nombre_completo'],
+            'first_last_name' => ['ape_pat'],
+            'second_last_name' => ['ape_mat'],
+        ], merge: true);
+
+        $setCalls = [];
+        $set = function ($key, $value) use (&$setCalls) {
+            $setCalls[$key] = $value;
+        };
+
+        $page->form = new class {
+            public function getState()
+            {
+                return ['dni' => '12345678'];
+            }
+        };
+
+        $page->consultaRENIEC($set);
+
+        $this->assertSame('Ana', $setCalls['first_name'] ?? null);
+        $this->assertSame('Lopez', $setCalls['first_last_name'] ?? null);
+        $this->assertSame('Soto', $setCalls['second_last_name'] ?? null);
     }
 
     public function test_consulta_ruc_setea_razon_social(): void
@@ -64,4 +107,3 @@ class TraitApiConsultaTest extends TestCase
         $this->assertSame('Mi Empresa SAC', $setCalls['razon_social'] ?? null);
     }
 }
-
