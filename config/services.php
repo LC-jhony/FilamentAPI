@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'sunat' => [
+        'token' => env('SUNAT_API_TOKEN'),
+        'base_url' => env('SUNAT_API_URL', 'https://api.codart.cgrt.net/api/v1/consultas/sunat'),
+    ],
 
 ];
